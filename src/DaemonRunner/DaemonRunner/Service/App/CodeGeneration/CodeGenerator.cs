@@ -19,11 +19,11 @@ namespace NetDaemon.Service.App.CodeGeneration
     {
         private static readonly Dictionary<string, string[]> _skipDomainServices = new()
         {
-            {"lock", new[] {"lock", "unlock", "open"}},
-            {"light", new[] {"turn_on", "turn_off", "toggle"}},
-            {"script", new[] {"reload"}},
-            {"automation", new[] {"turn_on", "turn_off", "toggle", "trigger", "reload"}},
-            {"binary_sensor", new[] {"turn_on", "turn_off", "toggle"}},
+            { "lock", new[] { "lock", "unlock", "open" } },
+            { "light", new[] { "turn_on", "turn_off", "toggle" } },
+            { "script", new[] { "reload" } },
+            { "automation", new[] { "turn_on", "turn_off", "toggle", "trigger", "reload" } },
+            { "binary_sensor", new[] { "turn_on", "turn_off", "toggle" } },
             {
                 "camera",
                 new[]
@@ -48,10 +48,10 @@ namespace NetDaemon.Service.App.CodeGeneration
                     "stop_cover_tilt", "set_cover_position", "set_cover_tilt_position", "toggle_cover_tilt"
                 }
             },
-            {"device_tracker", new[] {"see"}},
-            {"group", new[] {"reload", "set", "remove"}},
-            {"image_processing", new[] {"scan"}},
-            {"input_boolean", new[] {"turn_on", "turn_off", "toggle", "reload"}},
+            { "device_tracker", new[] { "see" } },
+            { "group", new[] { "reload", "set", "remove" } },
+            { "image_processing", new[] { "scan" } },
+            { "input_boolean", new[] { "turn_on", "turn_off", "toggle", "reload" } },
             {
                 "media_player",
                 new[]
@@ -62,14 +62,14 @@ namespace NetDaemon.Service.App.CodeGeneration
                     "select_source", "select_sound_mode", "media_seek"
                 }
             },
-            {"person", new[] {"reload"}},
-            {"zone", new[] {"reload"}},
-            {"scene", new[] {"reload", "apply", "create", "turn_on"}},
-            {"sensor", new[] {"turn_on", "turn_off", "toggle"}},
-            {"persistent_notification", new[] {"create", "dismiss", "mark_read"}},
-            {"sun", Array.Empty<string>()},
-            {"weather", Array.Empty<string>()},
-            {"switch", new[] {"turn_on", "turn_off", "toggle"}},
+            { "person", new[] { "reload" } },
+            { "zone", new[] { "reload" } },
+            { "scene", new[] { "reload", "apply", "create", "turn_on" } },
+            { "sensor", new[] { "turn_on", "turn_off", "toggle" } },
+            { "persistent_notification", new[] { "create", "dismiss", "mark_read" } },
+            { "sun", Array.Empty<string>() },
+            { "weather", Array.Empty<string>() },
+            { "switch", new[] { "turn_on", "turn_off", "toggle" } },
             {
                 "vacuum",
                 new[]
@@ -115,7 +115,7 @@ namespace NetDaemon.Service.App.CodeGeneration
             // Get all available domains, this is used to create the extensionmethods
             var domains = GetDomainsFromEntities(entityIds);
 
-            var singleServiceDomains = new string[] {"script"};
+            var singleServiceDomains = new string[] { "script" };
             foreach (var domain in domains)
             {
                 var camelCaseDomain = domain.ToPascalCase();
@@ -159,7 +159,7 @@ namespace NetDaemon.Service.App.CodeGeneration
                                   ?? throw new NetDaemonNullReferenceException("Failed to parse class declaration");
 
                 // They already have default implementation
-                var skipServices = new string[] {"turn_on", "turn_off", "toggle"};
+                var skipServices = new string[] { "turn_on", "turn_off", "toggle" };
 
                 foreach (var s in services.Where(n => n.Domain == domain)
                     .SelectMany(n => n.Services ?? new List<HassService>()))
@@ -262,7 +262,7 @@ namespace NetDaemon.Service.App.CodeGeneration
             var domainServiceNames = services.Where(n => n.Domain == domain)
                 .SelectMany(n => n.Services ?? new List<HassService>())
                 .Select(s =>
-                    s.Service![(s.Service.IndexOf(".", StringComparison.InvariantCultureIgnoreCase) + 1)..]);
+                    s.Service![(s.Service!.IndexOf(".", StringComparison.InvariantCultureIgnoreCase) + 1)..]);
             return domainServiceNames.Except(_skipDomainServices[domain]).Any();
         }
     }
