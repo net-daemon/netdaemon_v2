@@ -23,6 +23,7 @@ namespace NetDaemon.Infrastructure.Config
             var loggingConfiguration = GetLoggingConfiguration(hostingEnvironment);
             SetMinimumLogLevel(loggingConfiguration.MinimumLevel);
 
+#pragma warning disable CA1305
             return loggerConfiguration
                 .MinimumLevel.ControlledBy(LevelSwitch)
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
@@ -32,6 +33,7 @@ namespace NetDaemon.Infrastructure.Config
                     theme: NetDaemonConsoleThemes.GetThemeByType(loggingConfiguration.ConsoleThemeType),
                     applyThemeToRedirectedOutput: true,
                     outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext:l}: {Message:lj}{NewLine}{Exception}");
+#pragma warning restore CA1305
         }
 
         private static LoggingConfiguration GetLoggingConfiguration(IHostEnvironment hostingEnvironment)

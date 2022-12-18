@@ -83,6 +83,7 @@ namespace NetDaemon.Service
         {
             try
             {
+                _logger.LogWarning("You are using a deprecated version of NetDaemon runtime. Please upgrade to version 3. See https://netdaemon.xyz/ how to upgrade. After june 30 this version will no longer be maintained and should be used at own risk. Thank you for your understanding.");
                 _logger.LogInformation($"Starting NeDaemon service (version {Version})...");
 
                 if (_netDaemonSettings == null)
